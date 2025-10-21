@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  nasheMeDubaAnkhe:
+    container_name: nasheMeDubaAnkhe
+    image: postgres:13
+    ports:
+      - '5431:5432'
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: lovingEyesDatabase
+    networks:
+      - loveNetwork
+networks:
+  loveNetwork:
+    driver: bridge
