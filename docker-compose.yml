@@ -1,4 +1,5 @@
 version: '3.9'
+
 services:
   nasheMeDubaAnkhe:
     container_name: nasheMeDubaAnkhe
@@ -9,8 +10,14 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: lovingEyesDatabase
+    volumes:
+      - pgdata:/var/lib/postgresql/data # <— persist data here
     networks:
       - loveNetwork
+
 networks:
   loveNetwork:
     driver: bridge
+
+volumes:
+  pgdata: # <— named volume declared here
