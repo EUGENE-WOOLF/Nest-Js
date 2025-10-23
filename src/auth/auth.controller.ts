@@ -11,6 +11,11 @@ export class AuthController {
     const user = await this.authService.signup(dto);
     console.log(user);
   }
+
+  @Post('login')
+  login(@Body() dto: AuthDto) {
+    return this.authService.login(dto);
+  }
 }
 
 //we don't use @Req for the parent library to keep it agnostic of the underlying platform (Express, Fastify, etc.)
