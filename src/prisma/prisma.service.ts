@@ -13,3 +13,5 @@ export class PrismaService extends PrismaClient {
     });
   }
 }
+
+//max verstappen is going to win the 2025 world championship
