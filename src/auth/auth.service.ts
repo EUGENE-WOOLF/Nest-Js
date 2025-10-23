@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { AuthDto } from './dto';
 import * as argon2 from 'argon2';
+import { first, last } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -14,9 +15,13 @@ export class AuthService {
       data: {
         email: dto.email,
         hash: hash,
+        // store provided username in firstName field (or add a username field to your Prisma model)
+        firstName: dto.username,
+        lastName: 'firstPerson',
       },
     });
 
+    delete user.hash;
     return user;
   }
 }
