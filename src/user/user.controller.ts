@@ -1,12 +1,15 @@
 import { Controller, Get, UseGuards, Req } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import type { Request } from 'express';
+import { JwtGaurd } from 'src/auth/gaurd';
+import type { User } from '@prisma/client';
+import { GetUser } from 'src/auth/decorator/get-user.decorator';
 
 @Controller('user')
 export class UserController {
-  @UseGuards(AuthGuard('jwtForSambhavi'))
+  @UseGuards(JwtGaurd)
   @Get('me')
-  getUser(@Req() req: any) {
-    return { message: 'hello user', user: req.user };
+  getUser(@GetUser() user: User) {
+    return { message: 'hello user', user };
   }
 }
