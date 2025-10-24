@@ -4,6 +4,7 @@ import { AuthDto } from './dto';
 import * as argon2 from 'argon2';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { access } from 'fs';
 
 @Injectable()
 export class AuthService {
@@ -39,8 +40,6 @@ export class AuthService {
     return user;
   }
 
-  //login logic
-
   async login(dto: AuthDto) {
     const user = await this.prisma.user.findUnique({
       where: {
@@ -55,6 +54,20 @@ export class AuthService {
       throw new Error('Invalid password');
     }
 
-    return { message: 'Login successful' };
+    return this.signToken(user.id, user.email, user.role ?? 'STUDENT');
+  }
+
+  async signToken(
+    userId: number,
+    email: string,
+    role: string,
+  ): Promise<{ access_token: string }> {
+    const payload = { sub: userId, email, role };
+    const secret = this.config.get('JWT_SECRET');
+    const token = await this.jwt.signAsync(payload, {
+      expiresIn: '1h',
+      secret: secret,
+    });
+    return { access_token: token };
   }
 }
