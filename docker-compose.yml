@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  nasheMeDubaAnkhe:
+  dev-db:
     container_name: nasheMeDubaAnkhe
     image: postgres:13
     ports:
@@ -11,7 +11,21 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: lovingEyesDatabase
     volumes:
-      - pgdata:/var/lib/postgresql/data # <— persist data here
+      - pgdata:/var/lib/postgresql/data # persist data here
+    networks:
+      - loveNetwork
+
+  test-db:
+    container_name: nasheMeDubaAnkhe-test
+    image: postgres:13
+    ports:
+      - '5432:5432' # can change if you want a different port
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: lovingEyesDatabase
+    volumes:
+      - pgdata-test:/var/lib/postgresql/data # separate volume for test DB
     networks:
       - loveNetwork
 
@@ -20,4 +34,5 @@ networks:
     driver: bridge
 
 volumes:
-  pgdata: # <— named volume declared here
+  pgdata: {} # named volume for dev-db
+  pgdata-test: {} # named volume for test-db
