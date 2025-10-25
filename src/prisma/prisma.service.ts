@@ -13,6 +13,13 @@ export class PrismaService extends PrismaClient {
       },
     });
   }
+
+  cleanDb() {
+    return this.$transaction([
+      this.bookmark.deleteMany(),
+      this.user.deleteMany(),
+    ]);
+  }
 }
 
 //max verstappen is going to win the 2025 world championship

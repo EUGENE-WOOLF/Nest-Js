@@ -19,7 +19,7 @@ services:
     container_name: test-db
     image: postgres:13
     ports:
-      - '5432:5432' # can change if you want a different port
+      - '5435:5432' # can change if you want a different port
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
