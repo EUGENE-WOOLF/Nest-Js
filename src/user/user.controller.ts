@@ -9,7 +9,7 @@ import { GetUser } from 'src/auth/decorator/get-user.decorator';
 export class UserController {
   @UseGuards(JwtGaurd)
   @Get('me')
-  getUser(@GetUser() user: User) {
-    return { user };
+  getUser(@GetUser('email') userMail: string) {
+    return { userMail };
   }
 }

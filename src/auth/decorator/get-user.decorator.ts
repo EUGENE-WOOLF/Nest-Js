@@ -3,6 +3,6 @@ import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 export const GetUser = createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest();
-    return request.user; // this comes from your JwtGuard
+    return request.user['']; // this comes from your JwtGuard
   },
 );
