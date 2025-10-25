@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   dev-db:
-    container_name: nasheMeDubaAnkhe
+    container_name: dev-db
     image: postgres:13
     ports:
       - '5431:5432'
@@ -16,7 +16,7 @@ services:
       - loveNetwork
 
   test-db:
-    container_name: nasheMeDubaAnkhe-test
+    container_name: test-db
     image: postgres:13
     ports:
       - '5432:5432' # can change if you want a different port
