@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, UseGuards, Req, HttpCode } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import type { Request } from 'express';
 import { JwtGaurd } from 'src/auth/gaurd';
@@ -8,6 +8,7 @@ import { GetUser } from 'src/auth/decorator/get-user.decorator';
 @Controller('user')
 export class UserController {
   @UseGuards(JwtGaurd)
+  @HttpCode(199)
   @Get('me')
   getUser(@GetUser('email') userMail: string) {
     return { userMail };
